@@ -1,0 +1,41 @@
+Git-keys - README
+*****************
+
+Git-keys is a free tool designed to create an easy way to manage authorized ssh keys
+for a 'git' user on a server that hosts git repositories.  This tool is intended to
+create easy access to a git user's .ssh directory when the git user doesn't allow
+shell access.
+
+USAGE
+=====
+
+    Due to the cross user nature of the tool, `git-keys' must be run with root
+permissions, either as the root user or with `sudo'.  The git-keys tool has commands
+for four actions: add, clean, list, and remove. The syntax for each command is as 
+follows:
+
+    git-keys add <key-file>
+            Adds the key stored in <key-file> to the authorized keys for the git 
+        user. The <key-file> should be the public key for a user wishing to have
+        access to the git repository, and should not have another key stored from
+        the same machine.
+
+    git-keys clean
+            Removes all the keys stored in the git user's authrorized keys file.
+
+    git-keys list
+            Lists all the authorized keys stored for the git user.
+
+    git-keys remove <user>@<host>
+            Removes the key stored for the specified <user> at the specified <host>.
+
+
+INSTALL/UNINSTALL
+=================
+
+    To install the git-keys command simply run `sudo make install' and the package
+will be installed to the PREFIX directory.  To uninstall the tool run `sudo make
+uninstall', which will remove the script from the PREFIX directory.
+
+Carey Janecka
+<figitaki@figitaki.com>

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+ROOT_UID=0
+E_NOTROOT=87
+
+display_help() {
+  echo $'Usage: git-keys <command> [<args>]'
+  echo $''
+  echo $'List of commands:'
+  echo $'   add\t\tAdd a new key.'
+  echo $'   clean\tDelete all keys.'
+  echo $'   help\t\tDisplay help about this program.'
+  echo $'   list\t\tList all keys.'
+  echo $'   rm\t\tRemove a specific key.'
+  echo $''
+  echo $'See \'git-keys help <command>\' to read about a specific command.'
+  echo $''
+  echo $'git-keys is maintained by Carey Janecka <figitaki@figitaki.com>.'
+  echo $''
+}
+
+[ "$UID" -ne "0" ]&&echo $'Must be root to run git-keys.'&&exit $E_NOTROOT
+
+if [ -n "$1" ]
+then
+  arg=$1
+else
+  display_help
+  exit
+fi
+
+if [ "$arg" = "help" ]
+then
+  display_help
+fi
+
