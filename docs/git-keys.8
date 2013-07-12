@@ -1,0 +1,45 @@
+.\" Manpage for git-keys.
+.\" Contact figitaki@figitaki.com to correct errors or typos.
+.TH man 8 "12 July 2013" "1.0" "git-keys man page"
+.SH NAME
+git-keys \- manage the SSH keys for the git user
+.SH SYNOPSIS
+.sp
+.nf
+\fIgit-keys\fR <COMMAND> [<ARGUMENTS>]
+.fi
+.sp
+.SH DESCRIPTION
+.sp
+git-keys is a shell program for managing the authorized SSH keys allowed to access the git user on machine.
+.SH COMMANDS
+.PP
+.B git-keys add <KEY-FILE>
+.RS 4
+Adds the public key stored in <KEY-FILE> to the git users authorized key file.
+.RE
+.PP
+.B git-keys clean 
+.RS 4
+Removes all the keys authorized to access the git user.
+.RE
+.PP
+.B git-keys list
+.RS 4
+Lists all the keys authorized to access the git user.
+.RE
+.PP
+.B git-keys rm <USER> <HOST>
+.RS 4
+Removes the key stored for the specified <USER> at <HOST>.
+.SH ENVIRONMENT
+The git-keys tool is made for use with git servers that use a single git user and add the developer keys to the git user so that it is possible to check out code using ssh:
+.RS 4
+git@host:/path/to/repo.git
+.RE
+.SH BUGS
+No known bugs.
+.P
+Please report all bugs to: bugs<at>figitaki.com
+.SH AUTHOR
+Carey Janecka (figitaki@figitaki.com)
