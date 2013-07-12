@@ -44,6 +44,9 @@ _clean () {
 }
 
 display_help() {
+  echo $'git-keys 1.0'
+  echo $'Written by Carey Janecka'
+  echo $''
   echo $'Usage: git-keys <command> [<args>]'
   echo $''
   echo $'List of commands:'
@@ -57,10 +60,13 @@ display_help() {
   echo $''
   echo $'git-keys is maintained by Carey Janecka <figitaki@figitaki.com>.'
   echo $''
+  echo $'This software is licensed under The MIT License.'
+  echo $'Copyright(c) 2013 Carey Janecka'
+  echo $''
 }
 
 [ "$UID" -ne "0" ]&&echo $'Must be root to run git-keys.'&&exit $E_NOTROOT
-[ $# -eq 0 ]&&echo 'No args'&&exit
+[ $# -eq 0 ]&&echo 'No args'&&display_help&&exit
 if [ "$1" = "help" ]
 then
   _help $2
