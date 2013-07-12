@@ -3,6 +3,46 @@
 ROOT_UID=0
 E_NOTROOT=87
 
+_help() {
+  [ "$1" = "add" ]&&add_help&&exit
+  [ "$1" = "clean" ]&&clean_help&&exit
+  [ "$1" = "list" ]&&list_help&&exit
+  [ "$1" = "rm" ]&&remove_help&&exit
+  display_help
+  exit
+}
+
+add_help() {
+  echo $'Usage: git-keys add <key-file>'
+}
+
+_add () {
+  cat $1 >> ~git/.ssh/authorized_keys && echo "Success!"
+}
+
+_remove() {
+  if grep -Fq "$1@$2" ~git/.ssh/authorized_keys
+  then
+      sed -i "/$1@$2/d" ~git/.ssh/authorized_keys
+  else
+    echo "Key does not exist"
+  fi
+}
+
+_list () {
+  cat ~git/.ssh/authorized_keys
+}
+
+_clean () {
+  read -p "Are you sure? [Y/N]: " -n 1 -r
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo ""
+    cat /dev/null > ~git/.ssh/authorized_keys
+  fi
+  echo ""
+}
+
 display_help() {
   echo $'Usage: git-keys <command> [<args>]'
   echo $''
@@ -20,17 +60,23 @@ display_help() {
 }
 
 [ "$UID" -ne "0" ]&&echo $'Must be root to run git-keys.'&&exit $E_NOTROOT
-
-if [ -n "$1" ]
+[ $# -eq 0 ]&&echo 'No args'&&exit
+if [ "$1" = "help" ]
 then
-  arg=$1
+  _help $2
+elif [ "$1" = "list" ]
+then
+  _list
+elif [ "$1" = "add" ]
+then
+  _add $2
+elif [ "$1" = "rm" ]
+then
+  _remove $2 $3
+elif [ "$1" = "clean" ]
+then
+  _clean
 else
-  display_help
-  exit
-fi
-
-if [ "$arg" = "help" ]
-then
   display_help
 fi
 
